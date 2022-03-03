@@ -1,0 +1,37 @@
+<button class="settings__close"></button>
+<div class="settings-content">
+  <div class="settings__block">
+    <div class="settings__item">
+      <p class="settings__title">Volume</p>
+      <div class="settings__volume">
+        <input type="range" class="settings__volume_range" min="0" max="1" step="0.01">
+        <div class="settings__volume-buttons">
+          <button class="button__volume_mute"></button>
+          <button class="button__volume_on"></button>
+        </div>
+      </div>
+    </div>
+    <div class="settings__item">
+      <p class="settings__title">Time game</p>
+      <div class="settings__switcher-block">
+        <p class="settings__switcher-block_status">Off</p>
+        <label class="settings__time-switcher">
+          <input type="checkbox" name="time-switcher">
+          <span class="settings__time-switcher_slider"></span>
+        </label>
+      </div>
+      </div>
+    <div class="settings__item">
+      <p class="settings__title">Time to answer</p>
+      <div class="settings__answer-time">
+        <button class="settings__answer-time_minus" type="button" onclick="">–</button>
+        <input type="number" min="5" max="30" readonly class="settings__answer-time_counter">
+        <button class="settings__answer-time_plus" type="button" onclick="">+</button>
+      </div>
+    </div>
+  </div>
+  <div class="settings__buttons">
+    <button id="settingsDefault" class="settings__button">Default</button>
+    <button id="settingsSave" class="settings__button">Save</button>
+  </div>
+</div>
