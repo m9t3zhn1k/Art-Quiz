@@ -17,5 +17,7 @@
 }
 .footer__github:hover {
   color: #bdbdbd;
-
+}
+.footer__item {
+  user-select: none;
 }

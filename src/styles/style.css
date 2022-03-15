@@ -42,11 +42,12 @@ button {
   flex: 1 1 auto;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .footer {
   display: flex; 
   padding: 20px 0 0 0;
-  height: 50px;
+  min-height: 50px;
   justify-content: space-between;
   align-items: center;
   font-size: 1rem;

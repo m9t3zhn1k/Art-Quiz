@@ -1,4 +1,5 @@
 import HeaderElement from './Header.html';
+import './Header.css';
 
 export class Header {
   constructor() {}

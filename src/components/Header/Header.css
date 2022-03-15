@@ -1,0 +1,59 @@
+.head {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  min-height: 98px;
+}
+.logotitle {
+  position: relative;
+  color: #FFBCA2;
+  font-weight: 700;
+  font-size: 2.75rem;
+  letter-spacing: -0.06rem;
+  line-height: 62px;
+  margin: 0 120px 0 20px; 
+  user-select: none;
+}
+.logotitle::before {
+  position: absolute;
+  left: -1rem;
+  top: -0.1rem;
+  content: '';
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.logotitle::after {
+  position: absolute;
+  left: 1rem;
+  top: -0.1rem;
+  content: '';
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.logosubtitle {
+  color: white;
+}
+.navbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 62px;
+}
+.navbar-item {
+  font-weight: 500;
+  font-size: 1.5rem;
+  transition: all 0.25s;
+  user-select: none;
+}
+.navbar-item:not(:last-child) {
+  margin: 0 90px 0 0;
+}
+.navbar-item:hover {
+  color: #FFBCA2;
+}
