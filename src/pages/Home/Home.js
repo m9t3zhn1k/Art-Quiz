@@ -13,7 +13,6 @@ export class Home {
     const choosePictureQuizBtn = document.querySelector('.pictures-quiz');
     const logo = document.querySelector('.logotitle');
     const navbar = document.querySelector('.navbar');
-    const headerButton = document.querySelector('.header-button');
     function artistquiz() {
       window.mode = 'artist-quiz';
     }
@@ -21,9 +20,7 @@ export class Home {
       window.mode = 'pictures-quiz';
     }
     logo.remove();
-    navbar.innerHTML = ''
-    /* headerButton.classList.add('header-button__settings');
-    headerButton.setAttribute('href', '/#/settings'); */
+    navbar.innerHTML = '';
     chooseArtistQuizBtn.addEventListener('click', artistquiz);
     choosePictureQuizBtn.addEventListener('click', picturesquiz);
   };

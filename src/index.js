@@ -42,17 +42,7 @@ const router = async () => {
 
   const parsedURL = (request.resource ? `/${request.resource}` : '/') + (request.id ? '/:id' : '') + (request.verb ? `/${request.verb}` : '');
 
-  const page = routes[parsedURL] ? routes[parsedURL] : error404Instance;
-  /* if (page == homeInstance) {
-    header.innerHTML = '';
-  } else {
-    header.innerHTML = await headerInstance.render();
-    await headerInstance.after_render();
-    if (page == settingsInstance) {
-      document.querySelector('.categories-settings').remove();
-    }
-  } */
-  
+  const page = routes[parsedURL] ? routes[parsedURL] : error404Instance;  
   
   content.innerHTML = await page.render();
 
