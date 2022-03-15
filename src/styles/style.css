@@ -37,6 +37,10 @@ button {
   padding: 20px 40px;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+.header {
+  z-index: 1;
 }
 .main {
   flex: 1 1 auto;

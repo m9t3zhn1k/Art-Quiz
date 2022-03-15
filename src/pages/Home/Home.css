@@ -21,19 +21,6 @@
   margin: 6rem 0 0 0;
   z-index: 0;
 }
-.home-settings {
-  background: url('../../assets/svg/carbon_settings.svg') no-repeat;
-  height: 2rem;
-  width: 2rem;
-  background-size: contain;
-  position: absolute;
-  right: 4.5rem;
-  top: 4.5rem;
-  transition: all 0.25s;
-}
-.home-settings:hover {
-  transform: scale(1.25) rotate(120deg);
-}
 .home-logo {
   font-size: 7rem;
   line-height: 10rem;

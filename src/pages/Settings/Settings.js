@@ -11,7 +11,6 @@ export class Settings {
 
   async after_render () {
 
-    const closeBtn = document.querySelector('.settings__close');
     const buttonMinusTimer = document.querySelector('.settings__answer-time_minus');
     const buttonPlusTimer = document.querySelector('.settings__answer-time_plus');
     const counterTimer = document.querySelector('.settings__answer-time_counter');
@@ -22,6 +21,7 @@ export class Settings {
     const volumeBtnUnmute = document.querySelector('.button__volume_on');
     const defaultSettingsBtn = document.getElementById('settingsDefault');
     const saveSettingsBtn = document.getElementById('settingsSave');
+    const headerButton = document.querySelector('.header-button');
     let isVolumeSwitcherOn = Boolean(localStorage.getItem('isVolumeSwitcherOn') === 'true');
     let volumeLevel = localStorage.getItem('volumeLevel') || 0.4;
     let isTimeSwitcherOn = Boolean(localStorage.getItem('isTimeSwitcherOn') === 'true');
@@ -92,6 +92,9 @@ export class Settings {
     progressVolume.value = volumeLevel;
     volumeRange();
     counterTimer.value = roundTime;
+    headerButton.classList.remove('header-button__settings');
+    headerButton.classList.add('header-button__close');
+    headerButton.removeAttribute('href');
 
     buttonMinusTimer.addEventListener('click', minus5secToTimer);
     buttonPlusTimer.addEventListener('click', plus5secToTimer);
@@ -102,7 +105,7 @@ export class Settings {
     volumeBtnUnmute.addEventListener('click', setUnMute);
     defaultSettingsBtn.addEventListener('click', setSettingsToDefault);
     saveSettingsBtn.addEventListener('click', saveSettings);
-    closeBtn.addEventListener('click', goBack);
+    headerButton.addEventListener('click', goBack);
 
   };
 }

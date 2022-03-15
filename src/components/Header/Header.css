@@ -6,6 +6,31 @@
   width: 100%;
   min-height: 98px;
 }
+.header-button {
+  height: 36px;
+  width: 36px;
+  transition: all 0.25s;
+  justify-self: flex-end;
+  margin: 0 3rem 0 0;
+}
+.header-button__settings {
+  background: url('../../assets/svg/carbon_settings.svg') no-repeat;
+  background-size: contain;
+}
+.header-button__settings:hover {
+  transform: scale(1.25) rotate(120deg);
+}
+.header-button__close {
+  background-image: url('../../assets/svg/close.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.25s;
+}
+.header-button__close:hover {
+  filter: invert(42%) sepia(1%) saturate(1419%) hue-rotate(84deg) brightness(93%) contrast(90%);
+  cursor: pointer;
+  transform: scale(1.25);
+}
 .logotitle {
   position: relative;
   color: #FFBCA2;
@@ -44,6 +69,7 @@
   justify-content: flex-start;
   align-items: center;
   height: 62px;
+  flex-grow: 1;
 }
 .navbar-item {
   font-weight: 500;

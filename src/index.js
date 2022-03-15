@@ -33,16 +33,17 @@ const router = async () => {
   const content = document.getElementById('page_container');
   const header = document.getElementById('header_container');
   const footer = document.getElementById('footer_container');
-
+  header.innerHTML = await headerInstance.render();
   footer.innerHTML = await footerInstance.render();
   await footerInstance.after_render();
+  await headerInstance.after_render();
 
   const request = Utils.parseRequestURL();
 
   const parsedURL = (request.resource ? `/${request.resource}` : '/') + (request.id ? '/:id' : '') + (request.verb ? `/${request.verb}` : '');
 
   const page = routes[parsedURL] ? routes[parsedURL] : error404Instance;
-  if (page == homeInstance) {
+  /* if (page == homeInstance) {
     header.innerHTML = '';
   } else {
     header.innerHTML = await headerInstance.render();
@@ -50,8 +51,9 @@ const router = async () => {
     if (page == settingsInstance) {
       document.querySelector('.categories-settings').remove();
     }
-  }
-
+  } */
+  
+  
   content.innerHTML = await page.render();
 
   await page.after_render();

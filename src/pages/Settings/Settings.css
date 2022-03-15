@@ -7,24 +7,6 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.settings__close {
-  background-image: url('../../assets/svg/close.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 36px;
-  height: 36px;
-  position: absolute;
-  right: 4.5rem;
-  top: 4.5rem;
-  transition: all 0.25s;
-}
-.settings__close:hover {
-  filter: invert(42%) sepia(1%) saturate(1419%) hue-rotate(84deg) brightness(93%) contrast(90%);
-  cursor: pointer;
-}
-.settings__close:active {
-  transform: scale(1.25);
-}
 .settings__block {
   margin: 8rem 0 0 0;
   max-width: 492px;
