@@ -8,7 +8,7 @@ export class Category {
 
   async render () {
     let element = `
-    <a class="category__item" href="/#/game">
+    <a class="category__item" href="/#/game" data-group=${this.dataPosition}>
       <div class="category__header">
         <span class="category__title">${this.categoryName}</span>
         <span class="category__result">${this.rightAnswers}/10</span>

@@ -28,5 +28,16 @@ export class Categories {
       }
     }
 
+    categoriesContainer.addEventListener('click', startGame);
+
+    function startGame(event) {
+      const target = event.target.closest('.category__item');
+      if (!target || !categoriesContainer.contains(target)) {
+        return;
+      }
+      if (target) {
+        localStorage.setItem('currentNumber', target.dataset.group);
+      }
+    }
   };
 }

@@ -11,6 +11,7 @@ export class Game {
   }
 
   async after_render () {
-
+    document.querySelector('.header').innerHTML = '';
+    /* document.querySelector('.test1test').innerHTML = `${localStorage.getItem('currentNumber')}`; */
   }
 }
