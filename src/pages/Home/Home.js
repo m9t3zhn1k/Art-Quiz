@@ -14,10 +14,10 @@ export class Home {
     const logo = document.querySelector('.logotitle');
     const navbar = document.querySelector('.navbar');
     function artistquiz() {
-      window.mode = 'artist-quiz';
+      localStorage.setItem('gameType', 'artist-quiz');
     }
     function picturesquiz() {
-      window.mode = 'pictures-quiz';
+      localStorage.setItem('gameType', 'pictures-quiz');
     }
     logo.remove();
     navbar.innerHTML = '';

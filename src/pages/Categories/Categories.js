@@ -14,13 +14,13 @@ export class Categories {
   async after_render () {
     
     const categoriesContainer = document.querySelector('.categories__container');
-    if (window.mode === 'artist-quiz') {
+    if (localStorage.getItem('gameType') === 'artist-quiz') {
       for (let i = 0; i < 12; i++) {
         const newCategory = new Category(this.categories[i].name, this.categories[i].position);
         let item = await newCategory.render();
         categoriesContainer.innerHTML += item;
       }
-    } else {
+    } else if (localStorage.getItem('gameType') === 'pictures-quiz') {
       for (let i = 12; i < this.categories.length; i++) {
         const newCategory = new Category(this.categories[i].name, this.categories[i].position);
         let item = await newCategory.render();
@@ -37,6 +37,7 @@ export class Categories {
       }
       if (target) {
         localStorage.setItem('currentNumber', target.dataset.group);
+        /* location.href = '/#/game'; */
       }
     }
   };

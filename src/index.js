@@ -18,7 +18,6 @@ const settingsInstance = new Settings();
 const categoriesInstance = new Categories();
 const gameInstance = new Game();
 const error404Instance = new Error404();
-
 const headerInstance = new Header();
 const footerInstance = new Footer();
 
