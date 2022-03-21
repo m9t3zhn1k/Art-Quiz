@@ -3,8 +3,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  min-height: 98px;
 }
 .header-button {
   height: 36px;
