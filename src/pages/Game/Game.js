@@ -8,11 +8,11 @@ export class Game {
   rightAnswer;
   results;
   constructor() {
+    this.results = [];
   }
 
   async render () {
     this.currentNumber = localStorage.getItem('currentNumber') || 0;
-    this.results = [];
     return GameHTML;
   }
 
@@ -126,7 +126,7 @@ export class Game {
       this.currentNumber++;
       this.formGamePage();
     } else {
-      console.log('end');
+      location.href = '/#/results';
     }
   }
 

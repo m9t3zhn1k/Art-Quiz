@@ -7,6 +7,7 @@ import { Categories } from './pages/Categories';
 import { Settings } from './pages/Settings';
 import { Error404 } from './pages/Error404';
 import { Game } from './pages/Game';
+import { Results } from './pages/Results';
 
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -17,6 +18,7 @@ const homeInstance = new Home();
 const settingsInstance = new Settings();
 const categoriesInstance = new Categories();
 const gameInstance = new Game();
+const resultsInstance = new Results();
 const error404Instance = new Error404();
 const headerInstance = new Header();
 const footerInstance = new Footer();
@@ -26,6 +28,7 @@ const routes = {
   '/settings': settingsInstance,
   '/categories': categoriesInstance,
   '/game': gameInstance,
+  '/results': resultsInstance,
 };
 
 const router = async () => {
