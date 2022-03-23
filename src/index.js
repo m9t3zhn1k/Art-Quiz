@@ -53,3 +53,11 @@ const router = async () => {
 
 window.addEventListener('hashchange', router);
 window.addEventListener('load', router);
+
+if (!localStorage.getItem('answers')) {
+  const answers = {};
+  for (let i = 0; i < 24; i++) {
+    answers[i] = [false, false, false, false, false, false, false, false, false, false];
+  }
+  localStorage.setItem('answers', JSON.stringify(answers));
+}

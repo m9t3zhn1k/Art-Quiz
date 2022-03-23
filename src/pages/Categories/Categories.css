@@ -12,9 +12,6 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.category__item:hover {
-  cursor: pointer;
-}
 .category__header {
   display: flex;
   justify-content: space-between;
@@ -32,6 +29,12 @@
   border-radius: 1.25rem;
   filter: grayscale(100%);
   user-select: none;
+}
+.category__image_completed {
+  filter: grayscale(0%);
+}
+.category__image:hover {
+  cursor: pointer;
 }
 .category__title,
 .category__result {

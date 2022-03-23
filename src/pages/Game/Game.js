@@ -10,10 +10,11 @@ export class Game {
   results;
   constructor() {
     this.results = [];
+    this.currentGroup = localStorage.getItem('currentGroup');
   }
 
   async render () {
-    this.currentNumber = localStorage.getItem('currentNumber') || 0;
+    this.currentNumber = +(localStorage.getItem('currentGroup') + '0') || 0;
     return GameHTML;
   }
 
@@ -48,25 +49,24 @@ export class Game {
   }
 
   formGameAnswers() {
-    const answersContainer = document.querySelector('.game__answers');
-    answersContainer.addEventListener('click', this.checkAnswer);
-    let answers = [this.rightAnswer];
-    while (answers.length < 4) {
-      const randomAnswer = data[Math.round(Math.random() * 119)];
-      if (answers.every(answer => answer != randomAnswer)) {
-        answers.push(randomAnswer);
+    const answersRoundContainer = document.querySelector('.game__answers');
+    answersRoundContainer.addEventListener('click', this.checkAnswer);
+    let answersRound = [this.rightAnswer];
+    while (answersRound.length < 4) {
+      const randomAnswer = data[Math.round(Math.random() * 239)];
+      if (answersRound.every(answer => answer.author != randomAnswer.author)) {
+        answersRound.push(randomAnswer);
       } else continue;
     }
-    this.shuffle(answers);
-    answers.forEach(answer => {
+    this.shuffle(answersRound);
+    answersRound.forEach(answer => {
       const div = document.createElement('div');
       div.classList = 'game__answer';
       if (answer === this.rightAnswer) {
-        div.dataset.rightAnswer = 'true';
-        div.style.color = 'green'
+        div.style.color = 'green' // убрать перед деплоем
       }
       div.textContent = answer.author;
-      answersContainer.append(div);
+      answersRoundContainer.append(div);
     });
   }
 
@@ -80,7 +80,7 @@ export class Game {
   checkAnswer = () => {
     const item = event.target.closest('.game__answer');
     if (!item) return;
-    if (item.dataset.rightAnswer === 'true') {
+    if (item.textContent === this.rightAnswer.author) {
       item.classList.add('game__answer_right');
       this.results.push(true);
     } else {
@@ -128,7 +128,9 @@ export class Game {
       this.formGameResult();
     }
   }
+
   formGameResult = () => {
+    this.rewriteGameAnswers();
     const gameContainer = document.querySelector('.game__container');
     const popup = document.createElement('div');
     const img = document.createElement('div');
@@ -171,6 +173,13 @@ export class Game {
     buttons.append(buttonLeft, buttonRight);
     gameContainer.append(popup);
     popup.append(img, title, subtitle, buttons);
+  }
+
+  rewriteGameAnswers = () => {
+    let answers = JSON.parse(localStorage.getItem('answers'));
+    answers[this.currentGroup] = this.results;
+    localStorage.setItem('answers', JSON.stringify(answers));
+    console.log(JSON.parse(localStorage.getItem('answers')));
   }
 
   setGameScore = () => {
