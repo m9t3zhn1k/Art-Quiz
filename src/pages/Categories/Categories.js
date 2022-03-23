@@ -5,7 +5,6 @@ import { Category } from '../../components/Category';
 export class Categories {
   answers;
   constructor() {
-    this.answers = JSON.parse(localStorage.getItem('answers'));
     this.categories = [{name: 'I', group: 0}, {name: 'II', group: 1}, {name: 'III', group: 2}, {name: 'IV', group: 3}, {name: 'V', group: 4}, {name: 'VI', group: 5},{name: 'VII', group: 6}, {name: 'VIII', group: 7}, {name: 'IX', group: 8}, {name: 'X', group: 9}, {name: 'XI', group: 10}, {name: 'XII', group: 11}, {name: 'I', group: 12}, {name: 'II', group: 13}, {name: 'III', group: 14}, {name: 'IV', group: 15}, {name: 'V', group: 16}, {name: 'VI', group: 17},{name: 'VII', group: 18}, {name: 'VIII', group: 19}, {name: 'IX', group: 20}, {name: 'X', group: 21}, {name: 'XI', group: 22}, {name: 'XII', group: 23}];
   };
 
@@ -14,7 +13,7 @@ export class Categories {
   }
 
   async after_render () {
-    
+    this.answers = JSON.parse(localStorage.getItem('answers'));
     const categoriesContainer = document.querySelector('.categories__container');
     if (localStorage.getItem('gameType') === 'artist-quiz') {
       for (let i = 0; i < 12; i++) {

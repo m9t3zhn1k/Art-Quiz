@@ -29,12 +29,14 @@
   border-radius: 1.25rem;
   filter: grayscale(100%);
   user-select: none;
+  transition: all 0.25s;
 }
 .category__image_completed {
   filter: grayscale(0%);
 }
 .category__image:hover {
   cursor: pointer;
+  transform: scale(1.05);
 }
 .category__title,
 .category__result {

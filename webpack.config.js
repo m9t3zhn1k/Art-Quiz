@@ -20,12 +20,6 @@ module.exports = (env, options) => {
       filename: 'bundle.js',
       path: path.join(__dirname, '/build'),
     },
-    resolve: {
-      extensions: ['.js', '.json', '.mjs'],
-      alias: {
-        '@': path.join(__dirname, 'src'),
-      },
-    },
     module: {
       rules: [
         {

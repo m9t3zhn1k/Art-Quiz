@@ -9,11 +9,11 @@ export class Game {
   rightAnswer;
   results;
   constructor() {
-    this.results = [];
     this.currentGroup = localStorage.getItem('currentGroup');
   }
 
   async render () {
+    this.results = [];
     this.currentNumber = +(localStorage.getItem('currentGroup') + '0') || 0;
     return GameHTML;
   }
@@ -119,6 +119,7 @@ export class Game {
   }
 
   checkEndGame = () => {
+    console.log(this.results)
     if (this.results.length < 10) {
       document.getElementById('page_container').innerHTML = GameHTML;
       this.currentNumber++;
@@ -154,6 +155,7 @@ export class Game {
         img.style.height = '125px';
         buttonLeft.textContent = 'Home';
         buttonRight.textContent = 'Next Quiz';
+        buttonRight.addEventListener('click', this.linkCategories);
         break;
       case 'medium':
         subtitle.textContent = 'Congratulations!';
@@ -161,6 +163,7 @@ export class Game {
         img.style.backgroundImage = 'url(../../assets/svg/game-finish-icon.svg)';
         buttonLeft.textContent = 'Home';
         buttonRight.textContent = 'Next Quiz';
+        buttonRight.addEventListener('click', this.linkCategories);
         break;
       case 'low':
         title.textContent = 'Game over';
@@ -168,18 +171,31 @@ export class Game {
         img.style.backgroundImage = 'url(../../assets/svg/game-over-icon.svg)';
         buttonLeft.textContent = 'No';
         buttonRight.textContent = 'Yes';
+        buttonRight.addEventListener('click', this.startNewGame);
         break;
     }
+    buttonLeft.addEventListener('click', this.linkHomePage);
     buttons.append(buttonLeft, buttonRight);
     gameContainer.append(popup);
     popup.append(img, title, subtitle, buttons);
+  }
+
+  linkHomePage = () => {
+    location.href = '/#/';
+  }
+
+  linkCategories = () => {
+    location.href = '/#/categories';
+  }
+
+  startNewGame = async () => {
+    location.href = '/#/game';
   }
 
   rewriteGameAnswers = () => {
     let answers = JSON.parse(localStorage.getItem('answers'));
     answers[this.currentGroup] = this.results;
     localStorage.setItem('answers', JSON.stringify(answers));
-    console.log(JSON.parse(localStorage.getItem('answers')));
   }
 
   setGameScore = () => {
