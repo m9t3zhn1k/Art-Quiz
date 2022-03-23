@@ -9,10 +9,10 @@ export class Game {
   rightAnswer;
   results;
   constructor() {
-    this.currentGroup = localStorage.getItem('currentGroup');
   }
 
   async render () {
+    this.currentGroup = localStorage.getItem('currentGroup');
     this.results = [];
     this.currentNumber = +(localStorage.getItem('currentGroup') + '0') || 0;
     return GameHTML;
@@ -45,6 +45,9 @@ export class Game {
       const point = document.createElement('div');
       point.className = 'game__point';
       pointsContainer.append(point);
+      if (pointsContainer.childElementCount <= this.results.length) {
+        point.classList.add('game__point_completed');
+      }
     }
   }
 
@@ -62,9 +65,6 @@ export class Game {
     answersRound.forEach(answer => {
       const div = document.createElement('div');
       div.classList = 'game__answer';
-      if (answer === this.rightAnswer) {
-        div.style.color = 'green' // убрать перед деплоем
-      }
       div.textContent = answer.author;
       answersRoundContainer.append(div);
     });
@@ -99,6 +99,7 @@ export class Game {
     const subtitle = document.createElement('p');
     const button = document.createElement('button');
     const imgIcon = document.createElement('div');
+    const background = document.createElement('div');
     img.style.backgroundImage = `url(../../assets/data/img/${this.rightAnswer.imageNum}.webp)`;
     title.textContent = `«${this.rightAnswer.name}»`;
     subtitle.textContent = `${this.rightAnswer.author}, ${this.rightAnswer.year}`;
@@ -109,19 +110,21 @@ export class Game {
     subtitle.className = 'round-popup__subtitle';
     button.className = 'round-popup__button';
     imgIcon.className = 'round-popup__image_icon';
+    background.className = 'round-popup__background';
     imgIcon.style.backgroundImage = (this.results[this.results.length - 1]) ?
     'url(../../assets/svg/right-icon.svg)' :
     'url(../../assets/svg/wrong-icon.svg)';
     popup.append(img, title, subtitle, button);
     img.append(imgIcon);
     gameContainer.append(popup);
+    document.body.append(background);
     button.addEventListener('click', this.checkEndGame);
   }
 
   checkEndGame = () => {
-    console.log(this.results)
     if (this.results.length < 10) {
       document.getElementById('page_container').innerHTML = GameHTML;
+      document.querySelector('.round-popup__background').remove();
       this.currentNumber++;
       this.formGamePage();
     } else {
@@ -189,7 +192,8 @@ export class Game {
   }
 
   startNewGame = async () => {
-    location.href = '/#/game';
+    document.getElementById('page_container').innerHTML = await this.render();
+    this.after_render();
   }
 
   rewriteGameAnswers = () => {
