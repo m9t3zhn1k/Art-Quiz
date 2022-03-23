@@ -5,6 +5,7 @@ import data from '../../assets/data/images.json';
 export class Game {
 
   currentNumber;
+  currentGroup;
   rightAnswer;
   results;
   constructor() {
@@ -62,6 +63,7 @@ export class Game {
       div.classList = 'game__answer';
       if (answer === this.rightAnswer) {
         div.dataset.rightAnswer = 'true';
+        div.style.color = 'green'
       }
       div.textContent = answer.author;
       answersContainer.append(div);
@@ -80,15 +82,15 @@ export class Game {
     if (!item) return;
     if (item.dataset.rightAnswer === 'true') {
       item.classList.add('game__answer_right');
-      this.results.push({'rightAnswer': this.rightAnswer, 'roundResult': true});
+      this.results.push(true);
     } else {
       item.classList.add('game__answer_wrong');
-      this.results.push({'rightAnswer': this.rightAnswer, 'roundResult': false});
+      this.results.push(false);
     }
-    this.openRoundResult();
+    this.formRoundResult();
   }
 
-  openRoundResult() {
+  formRoundResult() {
     document.querySelector('.game__answers').removeEventListener('click', this.checkAnswer);
     const gameContainer = document.querySelector('.game__container');
     const popup = document.createElement('div');
@@ -107,27 +109,73 @@ export class Game {
     subtitle.className = 'round-popup__subtitle';
     button.className = 'round-popup__button';
     imgIcon.className = 'round-popup__image_icon';
-    imgIcon.style.backgroundImage = (this.results[this.results.length - 1].roundResult) ?
+    imgIcon.style.backgroundImage = (this.results[this.results.length - 1]) ?
     'url(../../assets/svg/right-icon.svg)' :
     'url(../../assets/svg/wrong-icon.svg)';
-    popup.append(img);
-    popup.append(title);
-    popup.append(subtitle);
-    popup.append(button);
+    popup.append(img, title, subtitle, button);
     img.append(imgIcon);
     gameContainer.append(popup);
     button.addEventListener('click', this.checkEndGame);
   }
 
   checkEndGame = () => {
-    
     if (this.results.length < 10) {
       document.getElementById('page_container').innerHTML = GameHTML;
       this.currentNumber++;
       this.formGamePage();
     } else {
-      location.href = '/#/results';
+      document.querySelector('.round-popup').remove();
+      this.formGameResult();
     }
+  }
+  formGameResult = () => {
+    const gameContainer = document.querySelector('.game__container');
+    const popup = document.createElement('div');
+    const img = document.createElement('div');
+    const title = document.createElement('p');
+    const subtitle = document.createElement('p');
+    const buttons = document.createElement('div');
+    const buttonLeft = document.createElement('button');
+    const buttonRight = document.createElement('button');
+    popup.className = 'game-popup';
+    img.className = 'game-popup__image';
+    title.className = 'game-popup__title';
+    subtitle.className = 'game-popup__subtitle';
+    buttons.className = 'game-popup__buttons';
+    buttonLeft.className = 'game-popup__button';
+    buttonRight.className = 'game-popup__button';
+    switch (this.setGameScore()) {
+      case 'top':
+        title.textContent = `Grand\nresult`;
+        subtitle.textContent = 'Congratulations!';
+        img.style.backgroundImage = 'url(../../assets/svg/game-congratulations-icon.svg)';
+        img.style.height = '125px';
+        buttonLeft.textContent = 'Home';
+        buttonRight.textContent = 'Next Quiz';
+        break;
+      case 'medium':
+        subtitle.textContent = 'Congratulations!';
+        title.textContent = `${this.results.filter(result => result).length}/${this.results.length}`;
+        img.style.backgroundImage = 'url(../../assets/svg/game-finish-icon.svg)';
+        buttonLeft.textContent = 'Home';
+        buttonRight.textContent = 'Next Quiz';
+        break;
+      case 'low':
+        title.textContent = 'Game over';
+        subtitle.textContent = 'Play again?';
+        img.style.backgroundImage = 'url(../../assets/svg/game-over-icon.svg)';
+        buttonLeft.textContent = 'No';
+        buttonRight.textContent = 'Yes';
+        break;
+    }
+    buttons.append(buttonLeft, buttonRight);
+    gameContainer.append(popup);
+    popup.append(img, title, subtitle, buttons);
+  }
+
+  setGameScore = () => {
+    let rightAnswers = this.results.filter(result => result).length;
+    return rightAnswers === 10 ? 'top' : rightAnswers >= 6 ? 'medium' : 'low';
   }
 
 }
