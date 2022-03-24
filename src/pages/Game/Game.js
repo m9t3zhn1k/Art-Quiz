@@ -3,7 +3,7 @@ import './Game.css';
 import data from '../../assets/data/images.json';
 
 export class Game {
-
+  gameType;
   currentNumber;
   currentGroup;
   rightAnswer;
@@ -12,6 +12,7 @@ export class Game {
   }
 
   async render () {
+    this.gameType = localStorage.getItem('gameType');
     this.currentGroup = localStorage.getItem('currentGroup');
     this.results = [];
     this.currentNumber = +(localStorage.getItem('currentGroup') + '0') || 0;
@@ -32,40 +33,64 @@ export class Game {
   }
 
   formGameQuestion() {
-    document.querySelector('.game__title').textContent = 'Who is the author of this picture?';
+    if (this.gameType === 'artist-quiz') {
+      document.querySelector('.game__title').textContent = 'Who is the author of this picture?';
+    } else if (this.gameType === 'pictures-quiz') {
+      document.querySelector('.game__title').textContent = `Which is ${this.rightAnswer.author} picture?`;
+    }
   }
 
   formGamePicture() {
-    document.querySelector('.game__picture_image').style.backgroundImage = `url(../../assets/data/full/${this.currentNumber}full.webp)`;
+    if (this.gameType === 'artist-quiz') {
+      document.querySelector('.game__picture_image').style.backgroundImage = `url(../../assets/data/full/${this.currentNumber}full.webp)`;
+    } else if (this.gameType === 'pictures-quiz') {
+      document.querySelector('.game__picture').remove();
+    }
   }
 
   formGamePoints() {
-    const pointsContainer = document.querySelector('.game__points');
-    while (pointsContainer.childElementCount < 10) {
-      const point = document.createElement('div');
-      point.className = 'game__point';
-      pointsContainer.append(point);
-      if (pointsContainer.childElementCount <= this.results.length) {
-        point.classList.add('game__point_completed');
+    if (this.gameType === 'artist-quiz') {
+      const pointsContainer = document.querySelector('.game__points');
+      while (pointsContainer.childElementCount < 10) {
+        const point = document.createElement('div');
+        point.className = 'game__point';
+        pointsContainer.append(point);
+        if (pointsContainer.childElementCount <= this.results.length) {
+          point.classList.add('game__point_completed');
+        }
       }
     }
   }
 
   formGameAnswers() {
     const answersRoundContainer = document.querySelector('.game__answers');
+    if (this.gameType === 'pictures-quiz') {
+      answersRoundContainer.classList.add('game__answers-image');
+    }
     answersRoundContainer.addEventListener('click', this.checkAnswer);
     let answersRound = [this.rightAnswer];
     while (answersRound.length < 4) {
       const randomAnswer = data[Math.round(Math.random() * 239)];
-      if (answersRound.every(answer => answer.author != randomAnswer.author)) {
-        answersRound.push(randomAnswer);
-      } else continue;
+      if (this.gameType === 'artist-quiz') {
+        if (answersRound.every(answer => answer.author != randomAnswer.author)) {
+          answersRound.push(randomAnswer);
+        } else continue;
+      } else if (this.gameType === 'pictures-quiz') {
+        if (answersRound.every(answer => answer.imageNum != randomAnswer.imageNum)) {
+          answersRound.push(randomAnswer);
+        } else continue;
+      }
     }
     this.shuffle(answersRound);
     answersRound.forEach(answer => {
       const div = document.createElement('div');
-      div.classList = 'game__answer';
-      div.textContent = answer.author;
+      if (this.gameType === 'artist-quiz') {
+        div.classList = 'game__answer';
+        div.textContent = answer.author;
+      } else if (this.gameType === 'pictures-quiz') {
+        div.classList = 'game__answer-image';
+        div.style.backgroundImage = `url(../../assets/data/full/${answer.imageNum}full.webp)`;
+      }
       answersRoundContainer.append(div);
     });
   }
@@ -185,15 +210,18 @@ export class Game {
 
   linkHomePage = () => {
     location.href = '/#/';
+    document.querySelector('.round-popup__background').remove();
   }
 
   linkCategories = () => {
     location.href = '/#/categories';
+    document.querySelector('.round-popup__background').remove();
   }
 
   startNewGame = async () => {
     document.getElementById('page_container').innerHTML = await this.render();
     this.after_render();
+    document.querySelector('.round-popup__background').remove();
   }
 
   rewriteGameAnswers = () => {

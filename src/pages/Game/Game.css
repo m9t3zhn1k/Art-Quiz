@@ -13,11 +13,12 @@
   font-size: 28px;
   line-height: 28px;
   letter-spacing: -0.5px;
+  margin: 0 0 65px;
 }
 .game__picture {
   max-width: 825px;
   height: 498px;
-  margin: 44px 0;
+  margin: -21px 0 45px;
   position: relative;
 }
 .game__picture_image {
@@ -57,6 +58,9 @@
   grid-template-rows: min-content min-content;
   grid-gap: 10px 20px;
 }
+.game__answers-image {
+  grid-gap: 25px;
+}
 .game__answer {
   display: inline-block;
   box-sizing: border-box;
@@ -74,10 +78,23 @@
   letter-spacing: -1.15px;
   color: #FFFFFF;
 }
+.game__answer-image {
+  width: 400px;
+  height: 280px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: all 0.25s;
+}
 .game__answer:hover {
   background: white;
   color: black;
   cursor: pointer;
+}
+.game__answer-image:hover {
+  cursor: pointer;
+  transform: scale(1.03);
 }
 .game__answer:active {
   border-color: #FFBCA2;
