@@ -103,14 +103,30 @@ export class Game {
   }
 
   checkAnswer = () => {
-    const item = event.target.closest('.game__answer');
-    if (!item) return;
-    if (item.textContent === this.rightAnswer.author) {
-      item.classList.add('game__answer_right');
-      this.results.push(true);
-    } else {
-      item.classList.add('game__answer_wrong');
-      this.results.push(false);
+    if (this.gameType === 'artist-quiz') {
+      const item = event.target.closest('.game__answer');
+      if (!item) return;
+      if (item.textContent === this.rightAnswer.author) {
+        item.classList.add('game__answer_right');
+        this.results.push(true);
+      } else {
+        item.classList.add('game__answer_wrong');
+        this.results.push(false);
+      }
+    } else if (this.gameType === 'pictures-quiz') {
+      const item = event.target.closest('.game__answer-image');
+      if (!item) return;
+      if (parseInt(item.style.backgroundImage.split('/').reverse()[0]) == this.rightAnswer.imageNum) {
+        const background = document.createElement('div');
+        background.className = 'game__answer-image_right';
+        item.append(background);
+        this.results.push(true);
+      } else {
+        const background = document.createElement('div');
+        background.className = 'game__answer-image_wrong';
+        item.append(background);
+        this.results.push(false);
+      }
     }
     this.formRoundResult();
   }
