@@ -17,27 +17,65 @@ export class Game {
     this.currentGroup = localStorage.getItem('currentGroup');
     this.results = [];
     this.currentNumber = +(localStorage.getItem('currentGroup') + '0') || 0;
-    this.isTimeSwitcherOn = localStorage.getItem('isTimeSwitcherOn') == true;
+    this.isTimeSwitcherOn = localStorage.getItem('isTimeSwitcherOn') == 'true';
     return GameHTML;
   }
 
   async after_render () {
     document.querySelector('.header').innerHTML = '';
     this.formGamePage();
-    this.formHeaderCloseButton();
   }
 
-  formHeaderCloseButton() {
-    if (!this.isTimeSwitcherOn) {
-      const closeButton = document.createElement('div');
-      closeButton.className = 'game__title_close-icon';
-      closeButton.addEventListener('click', this.goBack);
-      document.querySelector('.game__title-container').append(closeButton);
-    }
+  formGameTimerSection() {
+
+  }
+
+  formExitPopup = () => {
+    const gameContainer = document.querySelector('.game__container');
+    const popup = document.createElement('div');
+    const background = document.createElement('div');
+    const closeButton = document.createElement('div');
+    const title = document.createElement('p');
+    const buttons = document.createElement('div');
+    const buttonLeft = document.createElement('button');
+    const buttonRight = document.createElement('button');
+    popup.className = 'round-popup game-popup-exit';
+    background.className = 'game-popup-exit__background';
+    closeButton.className = 'game-popup-exit_close-icon';
+    title.className = 'game-popup-exit__title';
+    buttons.className = 'game-popup__buttons game-popup-exit__buttons';
+    buttonLeft.className = 'game-popup__button game-popup-exit__button-cancel';
+    buttonRight.className = 'game-popup__button game-popup__button-exit';
+    title.innerHTML = 'Do you really want to<br>quit the game?';
+    buttonLeft.textContent = 'Cancel';
+    buttonRight.textContent = 'Yes';
+    document.body.append(background);
+    buttons.append(buttonLeft, buttonRight);
+    popup.append(closeButton, title, buttons);
+    gameContainer.append(popup);
+    buttonRight.addEventListener('click', this.goBack);
+    buttonLeft.addEventListener('click', this.closePopup);
+    closeButton.addEventListener('click', this.closePopup);
+  }
+
+  formHeaderCloseButton(node) {
+    const closeButton = document.createElement('div');
+    closeButton.className = 'game__title_close-icon';
+    closeButton.addEventListener('click', this.formExitPopup);
+    node.append(closeButton);
+  }
+
+  closePopup() {
+    document.querySelector('.game-popup-exit')?.remove();
+    document.querySelector('.game-popup-exit__background')?.remove();
+    document.querySelector('.game-popup-exit__button-cancel')?.removeEventListener('click', this.closePopup);
+    document.querySelector('.game-popup-exit_close-icon')?.removeEventListener('click', this.closePopup);
   }
 
   goBack() {
     window.history.back();
+    document.querySelector('.game-popup__button-exit')?.removeEventListener('click', this.goBack);
+    document.querySelector('.game-popup-exit__background')?.remove();
   }
 
   formGamePage() {
@@ -46,6 +84,11 @@ export class Game {
     this.formGamePicture();
     this.formGamePoints();
     this.formGameAnswers();
+    if (this.isTimeSwitcherOn) {
+      this.formGameTimerSection();
+    } else {
+      this.formHeaderCloseButton(document.querySelector('.game__title-container'));
+    }
   }
 
   formGameQuestion() {

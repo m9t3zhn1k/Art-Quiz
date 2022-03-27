@@ -13,7 +13,8 @@
   justify-content: space-between;
   margin: 0 0 65px;
 }
-.game__title_close-icon {
+.game__title_close-icon,
+.game-popup-exit_close-icon {
   cursor: pointer;
   height: 36px;
   width: 36px;
@@ -21,6 +22,12 @@
   background-image: url('../../assets/svg/close.svg');
   background-repeat: no-repeat;
   background-position: center;
+}
+.game__title_close-icon:hover,
+.game-popup-exit_close-icon:hover {
+  filter: invert(42%) sepia(1%) saturate(1419%) hue-rotate(84deg) brightness(93%) contrast(90%);
+  cursor: pointer;
+  transform: scale(1.25);
 }
 .game__title {
   font-weight: 700;
@@ -150,7 +157,8 @@
   flex-direction: column;
   align-items: center;
 }
-.round-popup__background {
+.round-popup__background,
+.game-popup-exit__background {
   position: absolute;
   top: 0;
   left: 0;
@@ -196,7 +204,7 @@
   width: 400px;
   height: 62px;
   border-radius: 31px;
-  background-color: #f5a281;
+  border: 1.5px solid black;
   font-weight: 500;
   font-size: 22px;
   line-height: 22px;
@@ -206,6 +214,7 @@
 .round-popup__button:hover {
   cursor: pointer;
   background-color: #FFBCA2;
+  border: 1.5px solid #FFBCA2;
 }
 .game-popup {
   min-width: 462px;
@@ -257,4 +266,24 @@
   cursor: pointer;
   border: 1.5px solid #FFBCA2;
   background: #FFBCA2;
+}
+.game-popup-exit {
+  box-sizing: border-box;
+  width: 580px;
+}
+.game-popup-exit_close-icon {
+  align-self: flex-end;
+  filter: invert(42%) sepia(1%) saturate(1419%) hue-rotate(84deg) brightness(93%) contrast(90%);
+}
+.game-popup-exit__title {
+  color: black;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 36px;
+  text-align: center;
+  letter-spacing: -0.5px;
+  margin: 46px 0 55px;
+}
+.game-popup-exit__buttons {
+  max-width: none;
 }
