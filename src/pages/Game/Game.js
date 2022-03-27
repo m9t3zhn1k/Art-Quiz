@@ -8,6 +8,7 @@ export class Game {
   currentGroup;
   rightAnswer;
   results;
+  isTimeSwitcherOn;
   constructor() {
   }
 
@@ -16,12 +17,27 @@ export class Game {
     this.currentGroup = localStorage.getItem('currentGroup');
     this.results = [];
     this.currentNumber = +(localStorage.getItem('currentGroup') + '0') || 0;
+    this.isTimeSwitcherOn = localStorage.getItem('isTimeSwitcherOn') == true;
     return GameHTML;
   }
 
   async after_render () {
     document.querySelector('.header').innerHTML = '';
     this.formGamePage();
+    this.formHeaderCloseButton();
+  }
+
+  formHeaderCloseButton() {
+    if (!this.isTimeSwitcherOn) {
+      const closeButton = document.createElement('div');
+      closeButton.className = 'game__title_close-icon';
+      closeButton.addEventListener('click', this.goBack);
+      document.querySelector('.game__title-container').append(closeButton);
+    }
+  }
+
+  goBack() {
+    window.history.back();
   }
 
   formGamePage() {
