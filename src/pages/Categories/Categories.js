@@ -41,7 +41,7 @@ export class Categories {
       }
       if (target) {
         localStorage.setItem('currentGroup', target.parentElement.dataset.group);
-        location.href = '/#/game';
+        location.href = './#/game';
       }
     }
   };

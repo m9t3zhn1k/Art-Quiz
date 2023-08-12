@@ -13,7 +13,7 @@ export class Category {
         <span class="category__title">${this.categoryName}</span>
         <span class="category__result"></span>
       </div>
-      <img class="category__image" src="../../assets/data/img/${this.imageNumber}.webp"></img>
+      <img class="category__image" src="./assets/data/img/${this.imageNumber}.webp"></img>
     </div>
     `;
     return element;

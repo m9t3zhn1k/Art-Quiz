@@ -101,7 +101,7 @@ export class Game {
 
   formGamePicture() {
     if (this.gameType === 'artist-quiz') {
-      document.querySelector('.game__picture_image').style.backgroundImage = `url(../../assets/data/full/${this.currentNumber}full.webp)`;
+      document.querySelector('.game__picture_image').style.backgroundImage = `url(./assets/data/full/${this.currentNumber}full.webp)`;
     } else if (this.gameType === 'pictures-quiz') {
       document.querySelector('.game__picture').remove();
     }
@@ -148,7 +148,7 @@ export class Game {
         div.textContent = answer.author;
       } else if (this.gameType === 'pictures-quiz') {
         div.classList = 'game__answer-image';
-        div.style.backgroundImage = `url(../../assets/data/full/${answer.imageNum}full.webp)`;
+        div.style.backgroundImage = `url(./assets/data/full/${answer.imageNum}full.webp)`;
       }
       answersRoundContainer.append(div);
     });
@@ -200,7 +200,7 @@ export class Game {
     const button = document.createElement('button');
     const imgIcon = document.createElement('div');
     const background = document.createElement('div');
-    img.style.backgroundImage = `url(../../assets/data/img/${this.rightAnswer.imageNum}.webp)`;
+    img.style.backgroundImage = `url(./assets/data/img/${this.rightAnswer.imageNum}.webp)`;
     title.textContent = `«${this.rightAnswer.name}»`;
     subtitle.textContent = `${this.rightAnswer.author}, ${this.rightAnswer.year}`;
     button.textContent = 'Next';
@@ -212,8 +212,8 @@ export class Game {
     imgIcon.className = 'round-popup__image_icon';
     background.className = 'round-popup__background';
     imgIcon.style.backgroundImage = (this.results[this.results.length - 1]) ?
-    'url(../../assets/svg/right-icon.svg)' :
-    'url(../../assets/svg/wrong-icon.svg)';
+    'url(./assets/svg/right-icon.svg)' :
+    'url(./assets/svg/wrong-icon.svg)';
     popup.append(img, title, subtitle, button);
     img.append(imgIcon);
     gameContainer.append(popup);
@@ -254,7 +254,7 @@ export class Game {
       case 'top':
         title.textContent = `Grand\nresult`;
         subtitle.textContent = 'Congratulations!';
-        img.style.backgroundImage = 'url(../../assets/svg/game-congratulations-icon.svg)';
+        img.style.backgroundImage = 'url(./assets/svg/game-congratulations-icon.svg)';
         img.style.height = '125px';
         buttonLeft.textContent = 'Home';
         buttonRight.textContent = 'Next Quiz';
@@ -263,7 +263,7 @@ export class Game {
       case 'medium':
         subtitle.textContent = 'Congratulations!';
         title.textContent = `${this.results.filter(result => result).length}/${this.results.length}`;
-        img.style.backgroundImage = 'url(../../assets/svg/game-finish-icon.svg)';
+        img.style.backgroundImage = 'url(./assets/svg/game-finish-icon.svg)';
         buttonLeft.textContent = 'Home';
         buttonRight.textContent = 'Next Quiz';
         buttonRight.addEventListener('click', this.linkCategories);
@@ -271,7 +271,7 @@ export class Game {
       case 'low':
         title.textContent = 'Game over';
         subtitle.textContent = 'Play again?';
-        img.style.backgroundImage = 'url(../../assets/svg/game-over-icon.svg)';
+        img.style.backgroundImage = 'url(./assets/svg/game-over-icon.svg)';
         buttonLeft.textContent = 'No';
         buttonRight.textContent = 'Yes';
         buttonRight.addEventListener('click', this.startNewGame);
